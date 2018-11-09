@@ -32,7 +32,7 @@ def open_File_As_List():
 def pick_Random_Word():
     randomWord = ""
     # chose only the words with lenght of 7
-    while len(randomWord) != 7:
+    while len(randomWord) < 7:
         randomWord = random.choice(open_File_As_List())
     # create a dictionary
     dicRandWork = Counter(randomWord.lower())
