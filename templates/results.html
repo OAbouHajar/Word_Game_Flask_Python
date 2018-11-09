@@ -1,13 +1,20 @@
+<!--Osama Abou Hajar       C00220135-->
+<!--Words Gama     python Assignment-->
+
 {% extends "base.html" %}
 
 {% block body %}
         <h2>Your Position on the table was :  {{POS}}  </h2> 
         <h1> the top 10 results </h1>
+        <table style="width:50%" border="5" bgcolor="#ffffcc">
+                <tr>
+                        <th>Podtition</th>
+                        <th>Name</th> 
+                        <th>Score</th>
+                </tr>
+                {{table | safe}}
+        </table>
         <pre>{{results}}</pre>
-
         <br/><br/>
-
         <a href='/start'><button>Let's play!</button></a>
-
-
 {% endblock %}

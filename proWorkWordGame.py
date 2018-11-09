@@ -1,3 +1,5 @@
+# Osama Abou Hajar       C00220135
+# Words Gama     python Assignment
 from flask import Flask, render_template, request, session
 from collections import Counter
 import random
@@ -8,14 +10,16 @@ import pickle
 from operator import itemgetter
 
 app = Flask(__name__)  # "dunder name".
+
 app.secret_key = "any random string"
 
-
+# function to start the time
 def start_the_Time():
     startTime = time.time()
     return startTime
 
 
+# to open the file as list and delete the '\n' and "'s"
 def open_File_As_List():
     with open("words.txt") as re:
         fileData = re.readlines()
@@ -24,6 +28,7 @@ def open_File_As_List():
     return file_List_No_S
 
 
+# to pick a Random word from the word.txt file with len()=7
 def pick_Random_Word():
     randomWord = ""
     # chose only the words with lenght of 7
@@ -35,17 +40,20 @@ def pick_Random_Word():
     return random_Word_lower
 
 
+# to return the answer lenght
 def check_The_Answer_lenght(theAnswer):
     the_Answer_length = len(theAnswer.split())
     return the_Answer_length
 
 
+# to check and return the duplicate words
 def check_dupes_words(theAnswer):
     listAnser = theAnswer.split()
     dupes_words = [x for n, x in enumerate(listAnser) if x in listAnser[:n]]
     return dupes_words
 
 
+# to check and return  if the word in the dic or NOt
 def check_word_in_dic(theAnswer):
     inDic = True
     words = ""
@@ -55,11 +63,11 @@ def check_word_in_dic(theAnswer):
         else:
             inDic = False
             words += " " + word
-
     session["words"] = words
     return inDic
 
 
+# to there is no Extra letters
 def check_No_Extra_Letters(theAnswer):
     dicyes = True
     extraLetters = ""
@@ -77,6 +85,7 @@ def check_No_Extra_Letters(theAnswer):
     return dicyes
 
 
+# to check if entred word same to the Source Word
 def check_If_Same_Source_Word(theAnswer):
     sameSourceWord = True
     for same in theAnswer.split():
@@ -85,12 +94,14 @@ def check_If_Same_Source_Word(theAnswer):
     return sameSourceWord
 
 
+# to the start the local host
 @app.route("/")
 @app.route("/start")
 def start_page():
     return render_template("start.html", the_title="Welcome to the Game")
 
 
+# to display the form to the user
 @app.route("/displayform")
 def display_form():
     session["Stime"] = start_the_Time()
@@ -102,6 +113,7 @@ def display_form():
     )
 
 
+# to proccess the user input and check if they are meet the requirement
 @app.route("/processform", methods=["POST"])
 def process_form():
     Mistake = ""
@@ -149,6 +161,7 @@ def process_form():
     )
 
 
+# to send the results to the pickle file
 @app.route("/enterResults", methods=["POST"])
 def Enter_Results():
     name = request.form["thewinner"]
@@ -165,14 +178,14 @@ def Enter_Results():
     newlist = sorted(data, key=itemgetter("score"))
     newTenList = newlist[:10]
     topTenOutPut = ""
-    for i in range(10):
-        topTenOutPut += (
-            "Number :"
-            + str(i + 1)
-            + " >> \t "
-            + str(newTenList[i]["name"] + " ," + str(newTenList[i]["score"]))
-            + " Seconds ..\n"
-        )
+    table = ""
+    for i in range(len(newTenList)):
+        table += "<tr>"
+        table += "<td>" + str(i + 1) + "</td>"
+        table += "<td>" + str(newTenList[i]["name"]) + "</td>"
+        table += "<td>" + str(newTenList[i]["score"]) + "</td>"
+        table += "</tr>"
+
     pos = [i for i, _ in enumerate(newlist) if _["name"] == name][0]
     pos += 1
     return render_template(
@@ -180,6 +193,7 @@ def Enter_Results():
         the_title="Your Postion on the table!",
         results=topTenOutPut,
         POS=str(pos),
+        table=table,
     )
 
 
