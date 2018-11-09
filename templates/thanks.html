@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block body %}
+        {{ finalAnswer }}, Congrations.
+        <form action='/enterResults' method='POST'>
+                <label name='time'> Your time was: {{ time }}</label>
+                <br/>Your Name: <input type='text' name='thewinner'><br>
+                <input type='submit'>
+            </form>
+{% endblock %}

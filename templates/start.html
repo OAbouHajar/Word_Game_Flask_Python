@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+               
+    {% block body %}
+    <h2>Welcome to Word Game on the Web</h2>
+        
+    <h4>How to play...</h4>
+        <p>
+        You will be provided with a word of seven letters or more which we'll call the "sourceword". You are then to think up seven three-or-more letter words made up from the letters contained within the sourceword, ensuring that:
+        </p>
+        <ul>
+            <li>1. each word is made up from letters (and only the letters) contained within the source word,
+            <li>2. each word exists within the dictionary (i.e., it's a “real” word),
+            <li>3. the words all have three letters or more,
+            <li>4. there are no duplicates 1 , and
+            <li>5. none of the seven submitted words is the source word.
+        </ul>
+
+    <a href='/displayform'><button>Let's play!</button></a>
+    {% endblock %}

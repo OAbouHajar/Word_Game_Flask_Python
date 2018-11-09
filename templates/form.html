@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block body %}
+        <h2> Your Source Word is : </h2>
+        <font color="Yellow">- {{ wordGuess }}</font>
+        <br/>
+        <br/>
+        <form action='/processform' method='POST'>
+            Your answer: <input type='text' name='theanswer'><br/><br/>
+            <input type='submit'>
+        </form>
+{% endblock %}
